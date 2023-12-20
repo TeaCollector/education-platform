@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
+}
+
+group = 'ru.coffee'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.session:spring-session-core'
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation "io.r2dbc:r2dbc-postgresql:$r2dbcPostgresqlVersion"
+    // Обычный драйвер нужен для миграций flyway, потому что реактивный драйвер не умеет работать с flyway
+    implementation "org.postgresql:postgresql:$postgresqlDriverVersion"
+
+    runtimeOnly "org.flywaydb:flyway-database-postgresql:$flywayVersion"
+
+    // Для миграций
+    implementation "org.flywaydb:flyway-core:$flywayVersion"
+
+    // Для отлова багов во время сборки
+    implementation "com.google.code.findbugs:jsr305:$findbugsVersion"
+    // На запас эту миграцию для навыка работы с yaml
+//    implementation 'org.liquibase:liquibase-core:4.25.0'
+
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+    implementation "io.jsonwebtoken:jjwt:$JjwtVersion"
+
+    // "Для того чтобы у нас не было 100500 варнингов"
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:$xmlBindApiVersion"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

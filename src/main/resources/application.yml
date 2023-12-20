@@ -1,0 +1,26 @@
+server:
+  port: 8083
+
+spring:
+  r2dbc:
+    url: r2dbc:pool:postgres://localhost:5431/test
+    username: java
+    password: java
+
+  flyway:
+    url: jdbc:postgresql://localhost:5431/test
+    locations: classpath:db/migration
+    user: java
+    password: java
+
+jwt:
+  password:
+    encoder:
+      secret: FZK2DZ82odqS13e8aENggaMbb_fAkl-nJL4AEVBX43gFZK2DZ82odqS13e8aENggaMbb_fAkl-nJL4AEVBX43g
+      iteration: 64
+      keylength: 256
+
+  secret: 1F248A3257D547DC5A4EAB698D9511F248A3257D547DC5A4EAB698D951
+  expiration: 3600
+  issuer: sasha
+
