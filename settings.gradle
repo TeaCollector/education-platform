@@ -1,1 +1,4 @@
 rootProject.name = 'proselyte-study-webflux-jwt'
+
+include 'bin-media'
+
